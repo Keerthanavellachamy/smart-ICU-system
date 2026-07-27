@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patient History — Smart ICU Monitoring</title>
+<link rel="icon" href="images/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div class="sidebar-overlay"></div>
+<div class="app">
+
+  <aside class="sidebar glass">
+    <div class="brand">
+      <div class="logo-badge"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div class="brand-text">Smart ICU <small>Monitoring System</small></div>
+    </div>
+    <nav class="nav-list">
+      <a href="dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+      <a href="patient.html"><i class="fa-solid fa-user-injured"></i><span>Patients</span></a>
+      <a href="history.html"><i class="fa-solid fa-chart-line"></i><span>History</span></a>
+      <a href="doctor.html"><i class="fa-solid fa-user-doctor"></i><span>Doctor Profile</span></a>
+      <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+      <a href="index.html" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </nav>
+    <div class="sidebar-footer">© 2026 Smart ICU System<br>v1.0.0</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar glass">
+      <button class="sidebar-toggle-btn"><i class="fa-solid fa-bars"></i></button>
+      <h1>Patient History</h1>
+      <div class="search-wrap input-wrap" style="max-width:320px;">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="globalSearch" placeholder="Search patient by name or room...">
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="notifBell"><i class="fa-solid fa-bell"></i><span class="badge-count">4</span></button>
+        <div class="dropdown-panel glass" id="notifPanel"></div>
+        <button class="theme-toggle"><span class="knob"><i class="fa-solid fa-sun"></i></span></button>
+        <a href="doctor.html" class="profile-chip">
+          <img src="images/doctors/doc1.svg" alt="Doctor">
+          <div class="info"><b>Dr. Rohan Mehta</b><small>Critical Care</small></div>
+        </a>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="section-title">
+        <h2 id="historyPatientName">Ananya Sharma — Vital Trends</h2>
+        <span class="muted">Room ICU-101</span>
+      </div>
+
+      <div class="chart-card glass">
+        <div class="chart-head">
+          <div style="display:flex;align-items:center;gap:10px;font-weight:600;font-size:14px;"><i class="fa-solid fa-heart-pulse" style="color:#ff5b6a;"></i> Heart Rate Trend</div>
+          <div class="range-tabs chip-group">
+            <button class="chip active" data-range="today">Today</button>
+            <button class="chip" data-range="yesterday">Yesterday</button>
+            <button class="chip" data-range="week">Last 7 Days</button>
+            <button class="chip" data-range="month">Last Month</button>
+          </div>
+        </div>
+        <canvas class="trend-canvas" id="hrChart"></canvas>
+        <div class="legend-row"><span><i style="background:#ff5b6a;"></i> Heart Rate (bpm)</span></div>
+      </div>
+
+      <div class="chart-card glass">
+        <div class="chart-head">
+          <div style="display:flex;align-items:center;gap:10px;font-weight:600;font-size:14px;"><i class="fa-solid fa-lungs" style="color:#2b6ff2;"></i> SpO₂ Trend</div>
+        </div>
+        <canvas class="trend-canvas" id="spo2Chart"></canvas>
+        <div class="legend-row"><span><i style="background:#2b6ff2;"></i> SpO₂ (%)</span></div>
+      </div>
+
+      <div class="chart-card glass">
+        <div class="chart-head">
+          <div style="display:flex;align-items:center;gap:10px;font-weight:600;font-size:14px;"><i class="fa-solid fa-temperature-half" style="color:#f2a93b;"></i> Temperature Trend</div>
+        </div>
+        <canvas class="trend-canvas" id="tempChart"></canvas>
+        <div class="legend-row"><span><i style="background:#f2a93b;"></i> Temperature (°C)</span></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/theme.js"></script>
+<script src="js/script.js"></script>
+<script src="js/charts.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const pid = parseInt(params.get("id")) || 1;
+  const patient = PATIENTS.find(p=>p.id===pid) || PATIENTS[0];
+  document.querySelector("#historyPatientName").textContent = `${patient.name} — Vital Trends`;
+  document.querySelector(".muted").textContent = `Room ${patient.room}`;
+</script>
+</body>
+</html>
