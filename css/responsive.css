@@ -1,0 +1,43 @@
+/* ============================================================
+   Responsive rules
+   ============================================================ */
+
+@media (max-width: 1200px){
+  .patients-grid{ grid-template-columns: repeat(2,1fr); }
+  .stats-grid{ grid-template-columns: repeat(2,1fr); }
+  .settings-grid{ grid-template-columns: 1fr; }
+  .doctor-stats{ grid-template-columns: repeat(2,1fr); }
+}
+
+@media (max-width: 992px){
+  .sidebar{
+    position:fixed; left:0; top:0; transform: translateX(-100%); background: rgba(255,255,255,.85);
+    backdrop-filter: blur(20px); box-shadow: 10px 0 30px rgba(0,0,0,.15);
+  }
+  body.dark .sidebar{ background: rgba(11,25,50,.92); }
+  .sidebar.mobile-open{ transform: translateX(0); }
+  .sidebar-toggle-btn{ display:flex; }
+  .topbar h1{ display:none; }
+}
+
+@media (max-width: 720px){
+  .stats-grid{ grid-template-columns: 1fr 1fr; gap:14px; }
+  .stat-value{ font-size:24px; }
+  .patients-grid{ grid-template-columns: 1fr; }
+  .topbar{ padding:14px 16px; gap:10px; }
+  .content{ padding:18px 16px 40px; }
+  .search-wrap{ max-width:160px !important; }
+  .profile-chip .info{ display:none; }
+  .detail-grid{ grid-template-columns: 1fr; }
+  .doctor-hero{ text-align:center; justify-content:center; }
+  .doctor-stats{ grid-template-columns: 1fr 1fr; }
+  .login-form{ padding:34px 26px; }
+  .dropdown-panel{ right:10px; width: calc(100% - 20px); }
+}
+
+@media (max-width: 480px){
+  .stats-grid{ grid-template-columns: 1fr; }
+  .doctor-stats{ grid-template-columns: 1fr; }
+  .patient-actions{ flex-direction:column; }
+  .vitals-grid{ grid-template-columns: 1fr; }
+}

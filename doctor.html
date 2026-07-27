@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doctor Profile — Smart ICU Monitoring</title>
+<link rel="icon" href="images/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div class="sidebar-overlay"></div>
+<div class="app">
+
+  <aside class="sidebar glass">
+    <div class="brand">
+      <div class="logo-badge"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div class="brand-text">Smart ICU <small>Monitoring System</small></div>
+    </div>
+    <nav class="nav-list">
+      <a href="dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+      <a href="patient.html"><i class="fa-solid fa-user-injured"></i><span>Patients</span></a>
+      <a href="history.html"><i class="fa-solid fa-chart-line"></i><span>History</span></a>
+      <a href="doctor.html"><i class="fa-solid fa-user-doctor"></i><span>Doctor Profile</span></a>
+      <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+      <a href="index.html" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </nav>
+    <div class="sidebar-footer">© 2026 Smart ICU System<br>v1.0.0</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar glass">
+      <button class="sidebar-toggle-btn"><i class="fa-solid fa-bars"></i></button>
+      <h1>Doctor Profile</h1>
+      <div class="search-wrap input-wrap" style="max-width:320px;">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="globalSearch" placeholder="Search patient by name or room...">
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="notifBell"><i class="fa-solid fa-bell"></i><span class="badge-count">4</span></button>
+        <div class="dropdown-panel glass" id="notifPanel"></div>
+        <button class="theme-toggle"><span class="knob"><i class="fa-solid fa-sun"></i></span></button>
+        <a href="doctor.html" class="profile-chip">
+          <img src="images/doctors/doc1.svg" alt="Doctor">
+          <div class="info"><b>Dr. Rohan Mehta</b><small>Critical Care</small></div>
+        </a>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="doctor-hero glass fade-up">
+        <img src="images/doctors/doc1.svg" alt="Doctor">
+        <div>
+          <h2>Dr. Rohan Mehta</h2>
+          <p><i class="fa-solid fa-stethoscope"></i> Critical Care &amp; Pulmonology</p>
+          <span class="tag">On Duty Today</span>
+        </div>
+      </div>
+
+      <div class="doctor-stats">
+        <div class="doctor-stat glass"><b data-stat-doc="patients">0</b><span>Patients Assigned</span></div>
+        <div class="doctor-stat glass"><b data-stat-doc="available">0</b><span>Available Today</span></div>
+        <div class="doctor-stat glass"><b data-stat-doc="completed">0</b><span>Completed Cases</span></div>
+        <div class="doctor-stat glass"><b data-stat-doc="upcoming">0</b><span>Upcoming Appointments</span></div>
+      </div>
+
+      <div class="doctor-actions">
+        <button class="btn btn-primary"><i class="fa-solid fa-calendar-days"></i> View Schedule</button>
+        <button class="btn btn-outline"><i class="fa-solid fa-comment-medical"></i> Messages</button>
+        <button class="btn btn-danger"><i class="fa-solid fa-phone-volume"></i> Emergency Calls</button>
+      </div>
+
+      <div class="section-title"><h2>Today's Schedule</h2></div>
+      <div class="timeline glass" id="scheduleTimeline"></div>
+
+      <div class="section-title"><h2>Assigned Patients</h2></div>
+      <div class="patients-grid" id="doctorPatientsGrid"></div>
+    </div>
+  </main>
+</div>
+
+<script src="js/theme.js"></script>
+<script src="js/script.js"></script>
+<script>
+  document.querySelectorAll("[data-stat-doc]").forEach(el=>{
+    const key = el.dataset.statDoc;
+    const map = { patients:DOCTOR.patients, available:DOCTOR.availableToday, completed:DOCTOR.completed, upcoming:DOCTOR.upcoming };
+    animateCounter(el, map[key]);
+  });
+  document.querySelector("#scheduleTimeline").innerHTML = SCHEDULE.map(s=>`
+    <div class="timeline-item">
+      <div class="timeline-dot"><i class="fa-solid ${s.icon}"></i></div>
+      <div class="timeline-body"><b>${s.title}</b><span>${s.time}</span></div>
+    </div>`).join("");
+
+  document.querySelector("#doctorPatientsGrid").innerHTML = PATIENTS
+    .filter(p=>p.doctor === DOCTOR.name)
+    .map(p=>`
+      <div class="patient-card glass status-${p.status}">
+        <div class="patient-top">
+          <img src="${p.photo}" alt="${p.name}">
+          <div class="meta"><b>${p.name}</b><span>${p.age} yrs · Room ${p.room}</span></div>
+          <span class="status-badge ${p.status}">${p.status}</span>
+        </div>
+        <div class="patient-actions">
+          <button class="btn btn-outline btn-sm" onclick="location.href='patient.html'"><i class="fa-solid fa-notes-medical"></i> View</button>
+          <button class="btn btn-outline btn-sm" onclick="location.href='history.html?id=${p.id}'"><i class="fa-solid fa-chart-line"></i> History</button>
+        </div>
+      </div>`).join("");
+</script>
+</body>
+</html>

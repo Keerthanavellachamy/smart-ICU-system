@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patients — Smart ICU Monitoring</title>
+<link rel="icon" href="images/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div class="sidebar-overlay"></div>
+<div class="app">
+
+  <aside class="sidebar glass">
+    <div class="brand">
+      <div class="logo-badge"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div class="brand-text">Smart ICU <small>Monitoring System</small></div>
+    </div>
+    <nav class="nav-list">
+      <a href="dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+      <a href="patient.html"><i class="fa-solid fa-user-injured"></i><span>Patients</span></a>
+      <a href="history.html"><i class="fa-solid fa-chart-line"></i><span>History</span></a>
+      <a href="doctor.html"><i class="fa-solid fa-user-doctor"></i><span>Doctor Profile</span></a>
+      <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+      <a href="index.html" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </nav>
+    <div class="sidebar-footer">© 2026 Smart ICU System<br>v1.0.0</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar glass">
+      <button class="sidebar-toggle-btn"><i class="fa-solid fa-bars"></i></button>
+      <h1>Patient Details</h1>
+      <div class="search-wrap input-wrap" style="max-width:320px;">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="dashSearch" placeholder="Search patient by name or room...">
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="notifBell"><i class="fa-solid fa-bell"></i><span class="badge-count">4</span></button>
+        <div class="dropdown-panel glass" id="notifPanel"></div>
+        <button class="theme-toggle"><span class="knob"><i class="fa-solid fa-sun"></i></span></button>
+        <a href="doctor.html" class="profile-chip">
+          <img src="images/doctors/doc1.svg" alt="Doctor">
+          <div class="info"><b>Dr. Rohan Mehta</b><small>Critical Care</small></div>
+        </a>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="toolbar glass">
+        <div class="chip-group">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="stable">Stable</button>
+          <button class="chip" data-filter="observation">Observation</button>
+          <button class="chip" data-filter="critical">Critical</button>
+        </div>
+        <div class="spacer"></div>
+        <select class="select-sort" id="sortSelect">
+          <option value="room">Sort by Room No.</option>
+          <option value="status">Sort by Status</option>
+          <option value="name">Sort by Name</option>
+        </select>
+      </div>
+
+      <div class="section-title">
+        <h2>All Patients</h2>
+        <span class="muted">6 patients currently admitted in ICU</span>
+      </div>
+      <div class="patients-grid" id="patientsGrid"></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="detailsModal">
+  <div class="modal-box glass wide">
+    <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+    <div class="detail-header">
+      <img src="" alt="Patient">
+      <div><b style="font-size:16px;display:block;"></b><span style="color:var(--text-muted);font-size:13px;"></span></div>
+    </div>
+    <div class="detail-grid"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="emergencyModal">
+  <div class="modal-box glass">
+    <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+    <div class="siren"><i class="fa-solid fa-triangle-exclamation"></i></div>
+    <div class="emergency-title">⚠ Emergency!</div>
+    <div class="emergency-sub">Patient requires immediate medical attention.</div>
+    <div class="emergency-patient"></div>
+    <div class="emergency-detail" style="font-size:12.5px;color:var(--text-muted);margin-top:6px;"></div>
+    <button class="btn btn-danger" style="margin-top:20px;width:100%;" onclick="closeEmergencyModal()">Acknowledge &amp; Respond</button>
+  </div>
+</div>
+
+<script src="js/theme.js"></script>
+<script src="js/script.js"></script>
+<script src="js/alerts.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

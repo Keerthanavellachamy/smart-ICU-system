@@ -1,0 +1,211 @@
+/* ============================================================
+   Smart ICU Monitoring Dashboard — Core Styles
+   Theme: Clinical blue/white, glassmorphism, Poppins
+   ============================================================ */
+
+:root{
+  /* Palette */
+  --navy-950: #071a33;
+  --navy-900: #0b2447;
+  --navy-800: #123163;
+  --blue-700: #1d5fd6;
+  --blue-600: #2b6ff2;
+  --blue-500: #3d8bfd;
+  --sky-400: #5fb4ff;
+  --cyan-300: #7fe3ff;
+
+  --bg-page: linear-gradient(160deg,#eef4fc 0%, #e3edfb 45%, #dbe8fb 100%);
+  --bg-page-dark: linear-gradient(160deg,#050d1c 0%, #081733 55%, #0b2143 100%);
+
+  --glass-bg: rgba(255,255,255,0.55);
+  --glass-bg-strong: rgba(255,255,255,0.72);
+  --glass-border: rgba(255,255,255,0.6);
+  --glass-shadow: 0 8px 32px rgba(20,50,110,0.12);
+
+  --glass-bg-dark: rgba(18,32,62,0.55);
+  --glass-bg-strong-dark: rgba(18,32,62,0.75);
+  --glass-border-dark: rgba(95,140,220,0.25);
+  --glass-shadow-dark: 0 8px 32px rgba(0,0,0,0.45);
+
+  --text-primary: #0b2447;
+  --text-secondary: #4a5b7c;
+  --text-muted: #8494b3;
+  --text-primary-dark: #eaf1fb;
+  --text-secondary-dark: #a9bcdd;
+  --text-muted-dark: #7488ad;
+
+  --green: #17b978;
+  --green-bg: rgba(23,185,120,0.14);
+  --yellow: #f2a93b;
+  --yellow-bg: rgba(242,169,59,0.16);
+  --red: #ff4d5e;
+  --red-bg: rgba(255,77,94,0.14);
+
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+
+  --font-display: 'Poppins', sans-serif;
+  --transition: all .28s cubic-bezier(.4,0,.2,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family: var(--font-display);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  min-height:100vh;
+  transition: background .4s ease, color .4s ease;
+  -webkit-font-smoothing:antialiased;
+  background-attachment: fixed;
+}
+
+body.dark{
+  background: var(--bg-page-dark);
+  color: var(--text-primary-dark);
+}
+
+/* Ambient ECG watermark used across pages for medical texture */
+.ecg-bg{
+  position:fixed; inset:0; z-index:-1; opacity:.35; pointer-events:none;
+  overflow:hidden;
+}
+.ecg-bg svg{ width:200%; height:100%; animation: driftLine 22s linear infinite; }
+@keyframes driftLine{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+
+a{ text-decoration:none; color:inherit; }
+ul{ list-style:none; }
+button{ font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+input, select{ font-family:inherit; }
+
+::-webkit-scrollbar{ width:8px; height:8px; }
+::-webkit-scrollbar-thumb{ background:rgba(60,110,220,.35); border-radius:10px; }
+::-webkit-scrollbar-thumb:hover{ background:rgba(60,110,220,.55); }
+
+/* ---------- Glass card base ---------- */
+.glass{
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: var(--transition);
+}
+body.dark .glass{
+  background: var(--glass-bg-dark);
+  border-color: var(--glass-border-dark);
+  box-shadow: var(--glass-shadow-dark);
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:11px 22px; border-radius: 12px; font-weight:600; font-size:14px;
+  transition: var(--transition); white-space:nowrap;
+}
+.btn-primary{
+  background: linear-gradient(135deg, var(--blue-600), var(--sky-400));
+  color:#fff; box-shadow: 0 8px 20px rgba(43,111,242,.35);
+}
+.btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 12px 26px rgba(43,111,242,.45); }
+.btn-outline{
+  background: transparent; border: 1.5px solid rgba(43,111,242,.4); color: var(--blue-700);
+}
+body.dark .btn-outline{ color: var(--sky-400); border-color: rgba(95,180,255,.4); }
+.btn-outline:hover{ background: rgba(43,111,242,.08); }
+.btn-danger{
+  background: linear-gradient(135deg, #ff5b6a, #ff2e50);
+  color:#fff; box-shadow: 0 8px 20px rgba(255,60,80,.35);
+}
+.btn-danger:hover{ transform: translateY(-2px); }
+.btn-ghost{
+  background: rgba(120,150,220,.12); color: inherit;
+}
+.btn-ghost:hover{ background: rgba(120,150,220,.22); }
+.btn-sm{ padding:7px 14px; font-size:12.5px; border-radius:9px; }
+.btn:disabled{ opacity:.5; cursor:not-allowed; transform:none !important; }
+
+/* ---------- Form fields ---------- */
+.field{ display:flex; flex-direction:column; gap:6px; margin-bottom:18px; text-align:left; }
+.field label{ font-size:13px; font-weight:600; color: var(--text-secondary); }
+body.dark .field label{ color: var(--text-secondary-dark); }
+.input-wrap{
+  display:flex; align-items:center; gap:10px;
+  background: rgba(255,255,255,.6); border:1.5px solid rgba(120,150,220,.25);
+  border-radius: 12px; padding:12px 14px; transition: var(--transition);
+}
+body.dark .input-wrap{ background: rgba(10,20,45,.5); border-color: rgba(95,140,220,.3); }
+.input-wrap:focus-within{ border-color: var(--blue-600); box-shadow: 0 0 0 4px rgba(43,111,242,.14); }
+.input-wrap i{ color: var(--text-muted); font-size:14px; }
+.input-wrap input, .input-wrap select{
+  border:none; background:transparent; outline:none; width:100%;
+  font-size:14px; color: var(--text-primary);
+}
+body.dark .input-wrap input, body.dark .input-wrap select{ color: var(--text-primary-dark); }
+.input-wrap select option{ color:#000; }
+
+/* ============================================================
+   LOGIN PAGE
+   ============================================================ */
+.login-page{
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  padding:24px;
+}
+.login-shell{
+  display:grid; grid-template-columns: 1.1fr 1fr; max-width:960px; width:100%;
+  border-radius: 26px; overflow:hidden; box-shadow: 0 30px 80px rgba(20,50,110,.22);
+}
+.login-visual{
+  background: linear-gradient(155deg, var(--navy-900), var(--blue-700) 120%);
+  color:#fff; padding:48px 40px; position:relative; overflow:hidden;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.login-visual .brand{ display:flex; align-items:center; gap:12px; font-weight:700; font-size:20px; z-index:2; position:relative;}
+.login-visual .brand i{ font-size:26px; color: var(--cyan-300); }
+.login-visual h2{ font-size:28px; line-height:1.35; margin-top:40px; font-weight:600; z-index:2; position:relative;}
+.login-visual p{ margin-top:14px; opacity:.8; font-size:14px; z-index:2; position:relative; max-width:320px;}
+.pulse-wrap{ position:absolute; bottom:0; left:0; width:100%; opacity:.5; }
+.pulse-wrap svg{ width:200%; animation: driftLine 14s linear infinite; }
+.vital-chip{
+  display:flex; gap:14px; margin-top:34px; z-index:2; position:relative; flex-wrap:wrap;
+}
+.vital-chip span{
+  background: rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25);
+  padding:8px 12px; border-radius:10px; font-size:12px; display:flex; align-items:center; gap:6px;
+}
+.login-form{
+  background: rgba(255,255,255,.92); padding:48px 44px; display:flex; flex-direction:column; justify-content:center;
+}
+body.dark .login-form{ background: rgba(11,36,71,.92); }
+.login-form h1{ font-size:24px; font-weight:700; margin-bottom:4px; }
+.login-form .sub{ color:var(--text-muted); font-size:13.5px; margin-bottom:28px; }
+.role-toggle{ display:flex; gap:8px; margin-bottom:22px; background: rgba(120,150,220,.1); padding:4px; border-radius:12px; }
+.role-toggle button{ flex:1; padding:9px 0; border-radius:9px; font-size:13px; font-weight:600; color:var(--text-muted); transition: var(--transition); }
+.role-toggle button.active{ background: linear-gradient(135deg,var(--blue-600),var(--sky-400)); color:#fff; box-shadow:0 6px 16px rgba(43,111,242,.3); }
+.form-row-between{ display:flex; justify-content:space-between; align-items:center; font-size:12.5px; margin:-8px 0 18px; color:var(--text-muted); }
+.form-row-between label{ display:flex; gap:6px; align-items:center; }
+.error-msg{ color: var(--red); font-size:12.5px; min-height:18px; margin-top:-8px; margin-bottom:10px; }
+.login-form .btn-primary{ width:100%; padding:13px 0; font-size:15px; }
+.demo-hint{ margin-top:18px; font-size:12px; color: var(--text-muted); text-align:center; }
+
+@media (max-width: 820px){
+  .login-shell{ grid-template-columns: 1fr; }
+  .login-visual{ padding:34px 28px 60px; }
+}
+
+/* Shake animation for invalid login */
+@keyframes shake{
+  10%,90%{ transform: translateX(-2px); }
+  20%,80%{ transform: translateX(4px); }
+  30%,50%,70%{ transform: translateX(-8px); }
+  40%,60%{ transform: translateX(8px); }
+}
+.shake{ animation: shake .5s; }
+
+/* Fade/slide-in used broadly */
+@keyframes fadeUp{ from{ opacity:0; transform: translateY(14px);} to{opacity:1; transform:translateY(0);} }
+.fade-up{ animation: fadeUp .5s ease both; }

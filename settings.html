@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings — Smart ICU Monitoring</title>
+<link rel="icon" href="images/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div class="sidebar-overlay"></div>
+<div class="app">
+
+  <aside class="sidebar glass">
+    <div class="brand">
+      <div class="logo-badge"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div class="brand-text">Smart ICU <small>Monitoring System</small></div>
+    </div>
+    <nav class="nav-list">
+      <a href="dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+      <a href="patient.html"><i class="fa-solid fa-user-injured"></i><span>Patients</span></a>
+      <a href="history.html"><i class="fa-solid fa-chart-line"></i><span>History</span></a>
+      <a href="doctor.html"><i class="fa-solid fa-user-doctor"></i><span>Doctor Profile</span></a>
+      <a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+      <a href="index.html" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </nav>
+    <div class="sidebar-footer">© 2026 Smart ICU System<br>v1.0.0</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar glass">
+      <button class="sidebar-toggle-btn"><i class="fa-solid fa-bars"></i></button>
+      <h1>Settings</h1>
+      <div class="search-wrap input-wrap" style="max-width:320px;">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="globalSearch" placeholder="Search patient by name or room...">
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="notifBell"><i class="fa-solid fa-bell"></i><span class="badge-count">4</span></button>
+        <div class="dropdown-panel glass" id="notifPanel"></div>
+        <button class="theme-toggle"><span class="knob"><i class="fa-solid fa-sun"></i></span></button>
+        <a href="doctor.html" class="profile-chip">
+          <img src="images/doctors/doc1.svg" alt="Doctor">
+          <div class="info"><b>Dr. Rohan Mehta</b><small>Critical Care</small></div>
+        </a>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="settings-grid">
+        <div class="settings-card glass">
+          <h3><i class="fa-solid fa-palette"></i> Appearance</h3>
+          <div class="setting-row">
+            <div class="lab"><b>Theme</b><span>Switch between light and dark mode</span></div>
+            <select class="select-sort" id="settingTheme">
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="settings-card glass">
+          <h3><i class="fa-solid fa-bell"></i> Notifications</h3>
+          <div class="setting-row">
+            <div class="lab"><b>Enable Notifications</b><span>Get alerted on critical patient events</span></div>
+            <button class="switch" id="switchNotif"><span class="knob"></span></button>
+          </div>
+          <div class="setting-row">
+            <div class="lab"><b>Sound</b><span>Play a tone with emergency alerts</span></div>
+            <button class="switch" id="switchSound"><span class="knob"></span></button>
+          </div>
+        </div>
+
+        <div class="settings-card glass">
+          <h3><i class="fa-solid fa-globe"></i> Language</h3>
+          <div class="setting-row">
+            <div class="lab"><b>Interface Language</b><span>Choose your preferred language</span></div>
+            <select class="select-sort" id="settingLanguage">
+              <option>English</option>
+              <option>Hindi</option>
+              <option>Tamil</option>
+              <option>Spanish</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="settings-card glass">
+          <h3><i class="fa-solid fa-shield-halved"></i> Account</h3>
+          <div class="setting-row">
+            <div class="lab"><b>Signed in as</b><span id="settingsUserEmail">guest@hospital.com</span></div>
+            <a href="index.html" class="btn btn-outline btn-sm logout-link"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="saveSettingsBtn" style="align-self:flex-start;"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
+    </div>
+  </main>
+</div>
+
+<script src="js/theme.js"></script>
+<script src="js/script.js"></script>
+<script>
+  const settings = getSettings();
+  const notifSwitch = document.querySelector("#switchNotif");
+  const soundSwitch = document.querySelector("#switchSound");
+  const langSelect = document.querySelector("#settingLanguage");
+  const themeSelect = document.querySelector("#settingTheme");
+
+  notifSwitch.classList.toggle("on", settings.notifications);
+  soundSwitch.classList.toggle("on", settings.sound);
+  langSelect.value = settings.language;
+  themeSelect.value = document.body.classList.contains("dark") ? "dark" : "light";
+
+  notifSwitch.addEventListener("click", ()=> notifSwitch.classList.toggle("on"));
+  soundSwitch.addEventListener("click", ()=> soundSwitch.classList.toggle("on"));
+  themeSelect.addEventListener("change", ()=>{
+    const wantDark = themeSelect.value === "dark";
+    if(wantDark !== document.body.classList.contains("dark")) toggleTheme();
+  });
+
+  const user = JSON.parse(localStorage.getItem("icu_user") || "null");
+  if(user) document.querySelector("#settingsUserEmail").textContent = user.email;
+
+  document.querySelector("#saveSettingsBtn").addEventListener("click", ()=>{
+    saveSettings({
+      notifications: notifSwitch.classList.contains("on"),
+      sound: soundSwitch.classList.contains("on"),
+      language: langSelect.value
+    });
+    showToast("Settings saved successfully", "fa-circle-check");
+  });
+</script>
+</body>
+</html>

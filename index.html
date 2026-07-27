@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart ICU Monitoring — Login</title>
+<link rel="icon" href="images/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="login-page">
+
+<div class="ecg-bg">
+  <svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 100 L150 100 L180 40 L210 160 L240 100 L300 100 L330 60 L360 140 L390 100 L1200 100" stroke="#2b6ff2" stroke-width="2" fill="none"/><path d="M1200 100 L1350 100 L1380 40 L1410 160 L1440 100 L1500 100 L1530 60 L1560 140 L1590 100 L2400 100" stroke="#2b6ff2" stroke-width="2" fill="none"/></svg>
+</div>
+
+<div class="login-shell fade-up">
+  <div class="login-visual">
+    <div class="brand"><i class="fa-solid fa-heart-pulse"></i> Smart ICU</div>
+    <div>
+      <h2>Real-time critical care, monitored with clarity.</h2>
+      <p>Track vitals, respond to emergencies, and manage patient care from a single, unified dashboard.</p>
+      <div class="vital-chip">
+        <span><i class="fa-solid fa-heart-pulse"></i> Live Heart Rate</span>
+        <span><i class="fa-solid fa-lungs"></i> SpO₂ Tracking</span>
+        <span><i class="fa-solid fa-triangle-exclamation"></i> Instant Alerts</span>
+      </div>
+    </div>
+    <div class="pulse-wrap">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 60 L100 60 L125 20 L150 100 L175 60 L250 60 L275 30 L300 90 L325 60 L1200 60" stroke="#7fe3ff" stroke-width="2" fill="none" opacity="0.6"/></svg>
+    </div>
+  </div>
+
+  <div class="login-form">
+    <h1>Welcome back</h1>
+    <p class="sub">Sign in to access the ICU monitoring system</p>
+
+    <div class="role-toggle">
+      <button type="button" class="active" data-role="doctor">Doctor</button>
+      <button type="button" data-role="nurse">Nurse</button>
+      <button type="button" data-role="admin">Admin</button>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label for="loginEmail">Email address</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" id="loginEmail" placeholder="you@hospital.com" autocomplete="email">
+        </div>
+      </div>
+      <div class="field">
+        <label for="loginPassword">Password</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+        </div>
+      </div>
+      <div class="form-row-between">
+        <label><input type="checkbox" checked> Remember me</label>
+        <a href="#">Forgot password?</a>
+      </div>
+      <div class="error-msg"></div>
+      <button type="submit" class="btn btn-primary"><i class="fa-solid fa-right-to-bracket"></i> Sign In</button>
+    </form>
+    <p class="demo-hint">Demo access — enter any email &amp; password (4+ characters) to continue.</p>
+  </div>
+</div>
+
+<script src="js/theme.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
